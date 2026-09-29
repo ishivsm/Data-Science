@@ -1,0 +1,11 @@
+1-columns,rows how much dont know
+2- what type of data consits
+3- missing data
+
+info ()
+
+1-number of rows and colimns
+2-column name
+3-int 64,float object
+4-non null counts
+5-memory usage of the data frame
