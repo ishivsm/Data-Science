@@ -5,3 +5,5 @@ print("Display 10 rows")
 print(df.head())
 print("dispalay 10 rows last")
 print(df.tail())
+
+print(df.isnull().sum())
