@@ -1,0 +1,29 @@
+| Task               | Code                               |
+| ------------------ | ---------------------------------- |
+| Check dtype        | `df.dtypes`                        |
+| Detailed check     | `df.info()`                        |
+| → integer          | `.astype(int)`                     |
+| → float            | `.astype(float)`                   |
+| → string           | `.astype("string")`                |
+| → boolean          | `.astype("boolean")`               |
+| → category         | `.astype("category")`              |
+| → numeric          | `pd.to_numeric()`                  |
+| → datetime         | `pd.to_datetime()`                 |
+| → timedelta        | `pd.to_timedelta()`                |
+| Automatic dtype    | `convert_dtypes()`                 |
+| Infer object dtype | `infer_objects()`                  |
+| Nullable integer   | `.astype("Int64")`                 |
+| Nullable boolean   | `.astype("boolean")`               |
+| Nullable string    | `.astype("string")`                |
+| Numeric downcast   | `pd.to_numeric(..., downcast=...)` |
+| Extract year       | `df["Date"].dt.year`               |
+| Extract month      | `df["Date"].dt.month`              |
+| Extract day        | `df["Date"].dt.day`                |
+| Category codes     | `df["Col"].cat.codes`              |
+| Memory check       | `df.memory_usage(deep=True)`       |
+
+
+
+
+
+

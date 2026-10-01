@@ -1,0 +1,336 @@
+Pandas Data Type Changing
+Definition
+
+Data type changing means converting a column from one data type to another data type.
+
+Marathi: Data type changing म्हणजे DataFrame मधील column चा data type बदलणे.
+
+For example:
+
+"25" → 25
+"45000" → 45000
+"2026-10-01" → datetime
+
+
+
+# Pandas Data Type Changing
+
+### Definition
+
+**Data type changing means converting a column from one data type to another data type.**
+
+**Marathi:** Data type changing म्हणजे DataFrame मधील column चा **data type बदलणे**.
+
+For example:
+
+```text
+"25" → 25
+"45000" → 45000
+"2026-10-01" → datetime
+```
+
+---
+
+## 1. Check Data Types
+
+```python
+df.dtypes
+```
+
+Example:
+
+```python
+import pandas as pd
+
+df = pd.DataFrame({
+    "Age": ["25", "30", "35"],
+    "Salary": ["40000", "50000", "60000"]
+})
+
+print(df.dtypes)
+```
+
+Output:
+
+```text
+Age       object
+Salary    object
+dtype: object
+```
+
+---
+
+# 2. String → Integer
+
+Use `astype(int)`:
+
+```python
+df["Age"] = df["Age"].astype(int)
+```
+
+Now:
+
+```python
+print(df.dtypes)
+```
+
+```text
+Age        int64
+Salary    object
+```
+
+**Marathi:** String स्वरूपातील numbers ला integer मध्ये convert केले.
+
+---
+
+# 3. String → Float
+
+```python
+df["Salary"] = df["Salary"].astype(float)
+```
+
+Example:
+
+```python
+df["Salary"] = ["40000.50", "50000.75", "60000.25"]
+df["Salary"] = df["Salary"].astype(float)
+```
+
+---
+
+# 4. Integer → Float
+
+```python
+df["Age"] = df["Age"].astype(float)
+```
+
+```text
+25 → 25.0
+30 → 30.0
+```
+
+---
+
+# 5. Number → String
+
+```python
+df["Age"] = df["Age"].astype(str)
+```
+
+**Marathi:** Number ला text/string मध्ये convert करण्यासाठी `astype(str)` वापरतो.
+
+---
+
+# 6. String → Numeric Safely
+
+Real datasets मध्ये invalid values असू शकतात:
+
+```python
+df = pd.DataFrame({
+    "Salary": ["40000", "50000", "ABC", "60000"]
+})
+```
+
+Direct:
+
+```python
+df["Salary"].astype(int)
+```
+
+यामुळे error येईल.
+
+Use:
+
+```python
+df["Salary"] = pd.to_numeric(
+    df["Salary"],
+    errors="coerce"
+)
+```
+
+Result:
+
+```text
+40000
+50000
+NaN
+60000
+```
+
+`"ABC"` → `NaN`
+
+**Marathi:** चुकीची value आल्यास `errors="coerce"` त्या value ला `NaN` मध्ये convert करते.
+
+---
+
+# 7. String → DateTime
+
+```python
+df["Date"] = pd.to_datetime(df["Date"])
+```
+
+Example:
+
+```python
+df = pd.DataFrame({
+    "Date": ["2026-01-10", "2026-02-15", "2026-03-20"]
+})
+
+df["Date"] = pd.to_datetime(df["Date"])
+```
+
+Check:
+
+```python
+print(df.dtypes)
+```
+
+```text
+Date    datetime64[ns]
+```
+
+---
+
+# 8. Specific Date Format
+
+जर date अशी असेल:
+
+```text
+10-01-2026
+15-02-2026
+20-03-2026
+```
+
+Use:
+
+```python
+df["Date"] = pd.to_datetime(
+    df["Date"],
+    format="%d-%m-%Y"
+)
+```
+
+---
+
+# 9. String → Boolean
+
+Suppose:
+
+```python
+df = pd.DataFrame({
+    "Active": ["True", "False", "True"]
+})
+```
+
+Don't simply use:
+
+```python
+df["Active"].astype(bool)
+```
+
+Instead:
+
+```python
+df["Active"] = df["Active"].map({
+    "True": True,
+    "False": False
+})
+```
+
+---
+
+# 10. String → Category
+
+For repeated categorical values:
+
+```python
+df["Department"] = df["Department"].astype("category")
+```
+
+Example:
+
+```text
+IT
+HR
+IT
+Sales
+HR
+```
+
+Category type is useful for categorical columns and can reduce memory usage.
+
+---
+
+# 11. Convert Multiple Columns
+
+You can change multiple columns at once:
+
+```python
+df = df.astype({
+    "Age": int,
+    "Salary": float
+})
+```
+
+Example:
+
+```python
+df.astype({
+    "Age": "int64",
+    "Salary": "float64"
+})
+```
+
+---
+
+# 12. Convert All Suitable Columns Automatically
+
+```python
+df = df.convert_dtypes()
+```
+
+Then:
+
+```python
+print(df.dtypes)
+```
+
+Pandas automatically chooses suitable modern data types.
+
+---
+
+## Important Methods
+
+| Method               | Use                                 |
+| -------------------- | ----------------------------------- |
+| `astype(int)`        | Convert to integer                  |
+| `astype(float)`      | Convert to float                    |
+| `astype(str)`        | Convert to string                   |
+| `astype(bool)`       | Convert to boolean                  |
+| `astype("category")` | Convert to category                 |
+| `pd.to_numeric()`    | Convert to numeric                  |
+| `pd.to_datetime()`   | Convert to date/time                |
+| `pd.to_timedelta()`  | Convert to time duration            |
+| `convert_dtypes()`   | Automatically choose suitable types |
+
+### Most important for Data Science
+
+```python
+df.dtypes
+```
+
+```python
+df["Age"] = df["Age"].astype(int)
+```
+
+```python
+df["Salary"] = pd.to_numeric(df["Salary"], errors="coerce")
+```
+
+```python
+df["Date"] = pd.to_datetime(df["Date"])
+```
+
+```python
+df = df.convert_dtypes()
+```
