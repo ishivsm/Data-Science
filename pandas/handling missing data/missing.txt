@@ -1,0 +1,9 @@
+nan(not a number)
+none(for object data types )
+
+isnull()
+True-Nan is missing
+False-value is present
+
+how much none values coumt
+isnull.sum()
